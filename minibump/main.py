@@ -34,8 +34,9 @@ def change_version(
             click.echo("Aborting")
             return 1
     else:
-        changelog_dict = keepachangelog.to_dict(changelog_path.read_text())
-        guessed_version = keepachangelog._versioning.guess_unreleased_version(changelog_dict)
+        changelog_dict = keepachangelog.to_dict(changelog_path, show_unreleased=True)
+        _, current_semantic_version = keepachangelog._versioning.actual_version(changelog_dict)
+        guessed_version = keepachangelog._versioning.guess_unreleased_version(changelog_dict, current_semantic_version)
         if guessed_version != new_version_str:
             click.echo(
                 f"According to the changelog content, the new version should be {guessed_version} instead of {new_version}."
