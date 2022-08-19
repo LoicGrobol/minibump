@@ -1,12 +1,12 @@
 import pathlib
 import shutil
-import tempfile
 from typing import Callable, Literal, cast
 
 import click
 import keepachangelog
 import keepachangelog._versioning
 import semver
+import temppathlib
 import tomlkit
 
 
@@ -47,23 +47,31 @@ def change_version(
 
     cast(tomlkit.container.Container, pyproject_doc["project"])["version"] = new_version_str
 
-    if dry_run:
-        click.echo("\n---pyproject.toml---\n")
-        click.echo(pyproject_doc.as_string())
-        click.echo("---end pyproject.toml---")
-        if changelog_path.exists():
-            click.echo("\n---changelog---\n")
-            with tempfile.TemporaryDirectory() as temp_dir:
-                temp_changelog_path = pathlib.Path(temp_dir) / "CHANGELOG.md"
-                shutil.copy(changelog_path, temp_changelog_path)
-                keepachangelog.release(temp_changelog_path, new_version=new_version_str)
-                click.echo(temp_changelog_path.read_text())
-            click.echo("---end changelog---")
-    else:
-        with open(pyproject_path, "w") as out_stream:
+    # First apply the updates to temp files so in case of errors we won't have out of sync files
+    with temppathlib.TemporaryDirectory() as temp_dir:
+        temp_pyproject_path = temp_dir.path / "pyproject.toml"
+        with open(temp_pyproject_path, "w") as out_stream:
             tomlkit.dump(pyproject_doc, out_stream)
+        
         if changelog_path.exists():
-            keepachangelog.release(changelog_path, new_version=new_version)
+            temp_changelog_path = temp_dir.path / "CHANGELOG.md"
+            shutil.copy(changelog_path, temp_changelog_path)
+            keepachangelog.release(temp_changelog_path, new_version=new_version_str)
+
+
+        if dry_run:
+            click.echo("\n---pyproject.toml---\n")
+            click.echo(temp_pyproject_path.read_text())
+            click.echo("---end pyproject.toml---")
+            if changelog_path.exists():
+                click.echo("\n---changelog---\n")
+                click.echo(temp_changelog_path.read_text())
+                click.echo("---end changelog---")
+        else:
+            # TODO: this could be made even more atomic possibly
+            shutil.copy(temp_pyproject_path, pyproject_path)
+            if changelog_path.exists():
+                shutil.copy(temp_changelog_path, changelog_path)
 
 
 @click.group(help="Bump versions in changelogs and pyprojects")

@@ -17,6 +17,7 @@ dependencies = [
     "click >= 8",
     "keepachangelog",
     "semver >= 2.10",
+    "temppathlib",
     "tomlkit",
 ]
 
