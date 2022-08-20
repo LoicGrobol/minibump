@@ -40,12 +40,18 @@ def change_version(
             changelog_dict, current_semantic_version
         )
         if guessed_version != new_version_str:
-            click.echo(
-                f"According to the changelog content, the new version should be {guessed_version} instead of {new_version}."
-            )
-            if not relax:
-                click.echo("Aborting")
-                return 1
+            if current_version.major == 0 and guessed_version.split(".", maxsplit=1)[0] != "0":
+                click.echo(
+                    f"According to the changelog content, the new version should be {guessed_version} instead of {new_version}."
+                    " In the pre-1.0.0 stage this is acceptable, but remember to release a v1 at some point."
+                )
+            else:
+                click.echo(
+                    f"According to the changelog content, the new version should be {guessed_version} instead of {new_version}."
+                )
+                if not relax:
+                    click.echo("Aborting")
+                    return 1
 
     cast(tomlkit.container.Container, pyproject_doc["project"])["version"] = new_version_str
 
