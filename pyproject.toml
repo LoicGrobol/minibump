@@ -29,7 +29,7 @@ lint = [
     "mypy",
 ]
 tests = [
-    "freezegun",
+    "freezegun >= 1",
     "pytest",
     "pytest-console-scripts",
     "pytest-datadir",
