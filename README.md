@@ -66,3 +66,7 @@ Minibump is made to fit my own need as closely as possible. Although I would be 
 to also suit other people's needs, you might also want to have a look at
 [`bump2version`](https://pypi.org/project/bump2version/) and [the
 alternatives](https://github.com/c4urself/bump2version/blob/master/RELATED.md) they suggest.
+
+## Licence
+
+This software is released under the MIT Licence see [LICENCE.md](LICENCE.md) for the details.
