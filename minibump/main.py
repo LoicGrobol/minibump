@@ -101,11 +101,6 @@ dry_run_opt = click.option(
     help="Don't actually modify the files and print their content in the terminal instead.",
     is_flag=True,
 )
-relax_opt = click.option(
-    "--relax",
-    help="Don't require a changelog file or fail if the bumped version is inconsistent with its content.",
-    is_flag=True,
-)
 
 
 @cli.command(help="Increment a version segement")
@@ -116,9 +111,14 @@ relax_opt = click.option(
     help="The prefix to use for the pre-release segment, ignored for other segments.",
     show_default=True,
 )
+@click.option(
+    "--relax/--strict",
+    help="Don't require a changelog file or fail if the bumped version is inconsistent with its content.",
+    is_flag=True,
+    default=False,
+)
 @project_dir_arg
 @dry_run_opt
-@relax_opt
 def bump(
     dry_run: bool,
     pre_token: str,
@@ -147,9 +147,14 @@ def bump(
 
 @cli.command(help="Set the version manually")
 @click.argument("version")
+@click.option(
+    "--relax/--strict",
+    help="Don't require a changelog file or fail if the bumped version is inconsistent with its content.",
+    is_flag=True,
+    default=True,
+)
 @project_dir_arg
 @dry_run_opt
-@relax_opt
 def set(
     dry_run: bool,
     project_dir: pathlib.Path,

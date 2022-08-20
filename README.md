@@ -1,8 +1,8 @@
 Minibump
 =========
 
-[![Latest PyPI version](https://img.shields.io/pypi/v/zeldarose.svg)](https://pypi.org/project/zeldarose)
-[![Build Status](https://github.com/LoicGrobol/zeldarose/actions/workflows/ci.yml/badge.svg)](https://github.com/LoicGrobol/zeldarose/actions?query=workflow%3ACI)
+[![Latest PyPI version](https://img.shields.io/pypi/v/minibump.svg)](https://pypi.org/project/minibump)
+[![Build Status](https://github.com/LoicGrobol/minibump/actions/workflows/ci.yml/badge.svg)](https://github.com/LoicGrobol/minibump/actions?query=workflow%3ACI)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Bump versions in changelogs and pyprojects and be minimalist about it:
@@ -44,10 +44,25 @@ This will
 - Make a new release in your changelog (if present) from the content of the Unreleased section, with
   the appropriate version number, link and date.
 - If the segment you were asking to bump is inconsistent with the entries of your changelog, do
-  nothing (see the `--relax` option).
+  nothing and fail (see the `--relax/--strict` option).
 
 Options:
 
 - `--dry-run`: don't modify the files in place and prints the result in the console instead
-- `--relax`: ignore inconsistencies between the contents of the changelog and the segment you asked
-  to increment.
+- `--relax/--strict`: in strict mode (default), inconsistencies between changes and version make
+  minibump abort. in relax mode, this will simply result in a warning.
+
+Alternatively you can set a version yourself directly (in that case the default mode is relax) with `set`:
+
+```console
+minibump bump [OPTIONS] VERSION [PROJECT DIR]
+```
+
+Where `VERSION` is the version to set, which still has to be semver-compatible.
+
+## Similar tools
+
+Minibump is made to fit my own need as closely as possible. Although I would be glad to make evolve
+to also suit other people's needs, you might also want to have a look at
+[`bump2version`](https://pypi.org/project/bump2version/) and [the
+alternatives](https://github.com/c4urself/bump2version/blob/master/RELATED.md) they suggest.
