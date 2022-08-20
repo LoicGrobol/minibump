@@ -20,6 +20,20 @@ dependencies = [
     "temppathlib",
     "tomlkit",
 ]
+[project.optional-dependencies]
+lint = [
+    "black",
+    "flakeheaven",
+    "flake8-bugbear",
+    "flake8-pytest-style",
+    "mypy",
+]
+tests = [
+    "freezegun",
+    "pytest",
+    "pytest-console-scripts",
+    "pytest-datadir",
+]
 
 [project.readme]
 file = "README.md"
@@ -28,9 +42,23 @@ content-type = "text/markdown"
 [project.scripts]
 minibump = "minibump.main:cli"
 
+[tool.setuptools]
+packages = ["minibump"]
+
 [tool.mypy]
-allow_redefinition = true
 warn_unreachable = true
 
 [tool.black]
 line-length = 100
+
+[tool.flakeheaven.plugins]
+bugbear = ["+*"]
+pycodestyle = ["+*", "-W503", "-E501"]
+pyflakes = ["+*", "-E203", "-E266"]
+pytest-style = ["+*"]
+
+[tool.isort]
+profile = "black"
+
+[tool.bandit]
+assert_used.skips = ["tests/test_*.py"]

@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zeldarose"
+version = "0.7.0"
+description = "Train transformer-based models"
+license = {text = "MIT"}
+authors = [{name = "Loïc Grobol", email = "loic.grobol@gmail.com"}]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Environment :: Console",
+]
+keywords = [
+    "nlp",
+    "transformers",
+    "language-model",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "click >= 8.0.4, < 9.0.0",
+    "datasets >= 2.2, < 2.5",
+    "filelock",
+    "loguru",
+    "pydantic",
+    "pytorch-lightning >= 1.7.1, < 1.8.0",
+    "rich",
+    "sacremoses",
+    "torch > 1.8, < 1.13",
+    "torchmetrics >= 0.9, < 1.0",
+    "tokenizers ~= 0.10",
+    "toml",
+    "transformers >= 4.0.0, < 5.0.0",
+]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.optional-dependencies]
+lint = [
+    "black",
+    "flakeheaven",
+    "flake8-bugbear",
+    "flake8-pytest-style",
+    "mypy",
+]
+tests = [
+    "pytest",
+    "pytest-console-scripts",
+    "pytest-lazy-fixture",
+]
+
+
+[project.scripts]
+zeldarose-tokenizer = "zeldarose.train_tokenizer:main"
+zeldarose-transformer = "zeldarose.train_transformer:main"
+
+[tool.flakeheaven]
+max_line_length = 100
+
+[tool.flakeheaven.plugins]
+bugbear = ["+*"]
+pycodestyle = ["+*", "-W503", "-E501"]
+pyflakes = ["+*", "-E203", "-E266"]
+pytest-style = ["+*"]
+
+[tool.mypy]
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"

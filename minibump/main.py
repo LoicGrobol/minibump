@@ -36,7 +36,9 @@ def change_version(
     else:
         changelog_dict = keepachangelog.to_dict(changelog_path, show_unreleased=True)
         _, current_semantic_version = keepachangelog._versioning.actual_version(changelog_dict)
-        guessed_version = keepachangelog._versioning.guess_unreleased_version(changelog_dict, current_semantic_version)
+        guessed_version = keepachangelog._versioning.guess_unreleased_version(
+            changelog_dict, current_semantic_version
+        )
         if guessed_version != new_version_str:
             click.echo(
                 f"According to the changelog content, the new version should be {guessed_version} instead of {new_version}."
@@ -52,12 +54,11 @@ def change_version(
         temp_pyproject_path = temp_dir.path / "pyproject.toml"
         with open(temp_pyproject_path, "w") as out_stream:
             tomlkit.dump(pyproject_doc, out_stream)
-        
+
         if changelog_path.exists():
             temp_changelog_path = temp_dir.path / "CHANGELOG.md"
             shutil.copy(changelog_path, temp_changelog_path)
             keepachangelog.release(temp_changelog_path, new_version=new_version_str)
-
 
         if dry_run:
             click.echo("\n---pyproject.toml---\n")
@@ -77,6 +78,7 @@ def change_version(
 @click.group(help="Bump versions in changelogs and pyprojects")
 def cli():
     pass
+
 
 project_dir_arg = click.argument(
     "project_dir",
@@ -149,7 +151,7 @@ def set(
     version: str,
 ):
     def version_transform(current_version: semver.VersionInfo) -> semver.VersionInfo:
-       return semver.VersionInfo.parse(version)
+        return semver.VersionInfo.parse(version)
 
     change_version(
         dry_run=dry_run,
