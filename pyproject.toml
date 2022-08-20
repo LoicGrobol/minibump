@@ -28,6 +28,7 @@ lint = [
     "flake8-pytest-style",
     "mypy",
 ]
+
 tests = [
     "freezegun >= 1",
     "pytest",
@@ -38,6 +39,12 @@ tests = [
 [project.readme]
 file = "README.md"
 content-type = "text/markdown"
+
+[project.urls]
+"Bug Tracker" = "ttps://github.com/lgrobol/minibump/issues"
+"Changes" = "https://github.com/lgrobol/minibump/blob/master/CHANGELOG.md"
+"Documentation" = "https://github.com/lgrobol/minibump/blob/master/README.md"
+"Source Code" = "https://github.com/lgrobol/minibump"
 
 [project.scripts]
 minibump = "minibump.main:cli"

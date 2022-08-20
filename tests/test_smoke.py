@@ -56,7 +56,7 @@ def test_bump(
     # Not comparing changelogs here because the date changes and mocking it is annoying
 
 
-def test_dry_run(
+def test_bump_dry_run(
     script_runner: pytest_console_scripts.ScriptRunner,
     shared_datadir: pathlib.Path,
 ):
