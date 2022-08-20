@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "minibump"
-version = "0.0.1"
+version = "0.0.2"
 description = "Bump versions in changelogs and pyprojects"
 license = {text = "MIT"}
 authors = [{name = "Loïc Grobol", email = "loic.grobol@gmail.com"}]
