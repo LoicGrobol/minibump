@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+### Fixed
+
+- Project urls for PyPI again
+
 ## [0.0.1] - 2022-08-20
 
 [Unreleased]: https://github.com/loicgrobol/minibump/compare/v0.0.1...HEAD
