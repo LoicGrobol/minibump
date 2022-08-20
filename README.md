@@ -60,12 +60,16 @@ minibump bump [OPTIONS] VERSION [PROJECT DIR]
 
 Where `VERSION` is the version to set, which still has to be semver-compatible.
 
-## Similar tools
+## Inspirations and similar tools
 
 Minibump is made to fit my own need as closely as possible. Although I would be glad to make evolve
 to also suit other people's needs, you might also want to have a look at
 [`bump2version`](https://pypi.org/project/bump2version/) and [the
 alternatives](https://github.com/c4urself/bump2version/blob/master/RELATED.md) they suggest.
+
+As it is, Minibump is mostly a wrapper around [semver](https://python-semver.readthedocs.io) and
+[keep-a-changelog](https://github.com/Colin-b/keepachangelog), with
+[tomlkit](https://github.com/sdispater/tomlkit) as a backend for metadata parsing.
 
 ## Licence
 
