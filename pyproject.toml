@@ -42,8 +42,8 @@ content-type = "text/markdown"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/lgrobol/minibump/issues"
-"Changes" = "https://github.com/lgrobol/minibump/blob/master/CHANGELOG.md"
-"Documentation" = "https://github.com/lgrobol/minibump/blob/master/README.md"
+"Changes" = "https://github.com/lgrobol/minibump/blob/main/CHANGELOG.md"
+"Documentation" = "https://github.com/lgrobol/minibump/blob/main/README.md"
 "Source Code" = "https://github.com/lgrobol/minibump"
 
 [project.scripts]
