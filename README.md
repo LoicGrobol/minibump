@@ -7,7 +7,7 @@ Minibump
 
 Bump versions in changelogs and pyprojects and be minimalist about it:
 
-- Only supports [semnatic versioning](https://semver.org).
+- Only supports [semantic versioning](https://semver.org).
 - Only supports standard tool-independent version fields in `pyproject.toml`.
 - Only supports the [Keep a changelog](https://keepachangelog.com) format, in Markdown and with
   `CHANGELOG.md` as a file name.
